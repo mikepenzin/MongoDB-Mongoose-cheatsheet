@@ -9,8 +9,8 @@ https://blog.codecentric.de/files/2012/12/MongoDB-CheatSheet-v1_0.pdf
 
 Definitely not comprehensive. This is meant to be a basic memory aid with links to get more details. I'll add to it over time.
 
-Install
-
+### Install
+```js
 $ npm install mongoose --save
 Connect
 
@@ -21,8 +21,10 @@ const uri = process.env.MONGO_URI || 'mongodb://localhost/test';
 mongoose.connect(uri, function(err, res) {
   ...
 });
-Defining a schema
+```
 
+### Defining a schema
+```js
 const userSchema = new mongoose.Schema({
   name: {
     first: String,
@@ -32,8 +34,9 @@ const userSchema = new mongoose.Schema({
   posts: [ { title: String, url: String, date: Date } ],
   updated: { type: Date, default: Date.now }
 });
-SchemaTypes
+```
 
+### SchemaTypes
 String
 Number
 Date
@@ -42,22 +45,30 @@ Boolean
 Mixed
 ObjectId
 Array
-SchemaTypes
-SchemaType API
-SchemaType#default
-SchemaType#validate
-get
-set
-select
 
-Notes
+SchemaTypes - http://mongoosejs.com/docs/schematypes.html
+
+SchemaType API - http://mongoosejs.com/docs/api.html#schematype_SchemaType
+
+SchemaType#default - http://mongoosejs.com/docs/api.html#schematype_SchemaType-default
+
+SchemaType#validate - http://mongoosejs.com/docs/api.html#schematype_SchemaType-default
+
+get - http://mongoosejs.com/docs/api.html#schematype_SchemaType-get
+
+set - http://mongoosejs.com/docs/api.html#schematype_SchemaType-set
+
+select - http://mongoosejs.com/docs/api.html#schematype_SchemaType-select
+
+
+#### Notes
 
 Mixed types and dates that are modified using JavaScript Date methods are not hooked into mongoose change tracking logic. To save changes, let mongoose know about them using markModified('path') before calling save.
 
-Instantiating a model
+### Instantiating a model
 
 A model is a constructor compiled from a schema. Model instances represent documents.
-
+```js
 const User = mongoose.model('User', userSchema);
 
 var u = new User({
@@ -67,12 +78,13 @@ var u = new User({
   },
   age: 99
 });
-Query
+```
+### Query
 
-query
+query - http://mongoosejs.com/docs/api.html#query-js
 
-$where
-
+#### $where
+```js
 query.$where('this.comments.length > 10 || this.name.length > 5')
 
 // or
@@ -80,173 +92,176 @@ query.$where('this.comments.length > 10 || this.name.length > 5')
 query.$where(function() {
   return this.comments.length > 10 || this.name.length > 5;
 });
-mongoDB $where
+```
 
-$all
+mongoDB $where - http://docs.mongodb.org/manual/reference/operator/query/where/
 
-mongoose $all
-mongoDB $all
+#### $all
 
-$count
+mongoose $all - http://mongoosejs.com/docs/api.html#query_Query-all
+
+mongoDB $all - http://docs.mongodb.org/manual/reference/operator/query/all/
+
+#### $count
 
 http://mongoosejs.com/docs/api.html#query_Query-count
 
-$distinct
+#### $distinct
 
 http://mongoosejs.com/docs/api.html#query_Query-distinct
 
-#elemMatch
+#### #elemMatch
 
 http://mongoosejs.com/docs/api.html#query_Query-elemMatch
 
-#equals
+#### #equals
 
 http://mongoosejs.com/docs/api.html#query_Query-equals
 
-#exec
+#### #exec
 
 http://mongoosejs.com/docs/api.html#query_Query-exec
 
-#exists
+#### #exists
 
 http://mongoosejs.com/docs/api.html#query_Query-exists
 
-#find
+#### #find
 
 http://mongoosejs.com/docs/api.html#query_Query-find
 
-findOne
+#### findOne
 
 http://mongoosejs.com/docs/api.html#query_Query-findOne
 
-findOneAndRemove
+#### findOneAndRemove
 
 http://mongoosejs.com/docs/api.html#query_Query-findOneAndRemove
 
-findOneAndUpdate
+#### findOneAndUpdate
 
 http://mongoosejs.com/docs/api.html#query_Query-findOneAndUpdate
 
-#gt
+#### #gt
 
 http://mongoosejs.com/docs/api.html#query_Query-gt
 
-#gte
+#### #gte
 
 http://mongoosejs.com/docs/api.html#query_Query-gte
 
-#hint
+#### #hint
 
 http://mongoosejs.com/docs/api.html#query_Query-hint
 
-#in
+#### #in
 
 http://mongoosejs.com/docs/api.html#query_Query-in
 
-#lean
+#### #lean
 
 http://mongoosejs.com/docs/api.html#query_Query-lean
 
-#limit
+#### #limit
 
 http://mongoosejs.com/docs/api.html#query_Query-limit
 
-#lt
+#### #lt
 
 http://mongoosejs.com/docs/api.html#query_Query-lt
 
-#lte
+#### #lte
 
 http://mongoosejs.com/docs/api.html#query_Query-lte
 
-#maxScan
+#### #maxScan
 
 http://mongoosejs.com/docs/api.html#query_Query-maxScan
 
-#merge
+#### #merge
 
 http://mongoosejs.com/docs/api.html#query_Query-merge
 
-#mod
+#### #mod
 
 http://mongoosejs.com/docs/api.html#query_Query-mod
 
-#ne
+#### #ne
 
 http://mongoosejs.com/docs/api.html#query_Query-ne
 
-#nin
+#### #nin
 
 http://mongoosejs.com/docs/api.html#query_Query-nin
 
-#nor
+#### #nor
 
 http://mongoosejs.com/docs/api.html#query_Query-nor
 
-#or
+#### #or
 
 http://mongoosejs.com/docs/api.html#query_Query-or
 
-#populate
+#### #populate
 
 http://mongoosejs.com/docs/api.html#query_Query-populate
 
-#read
+#### #read
 
 http://mongoosejs.com/docs/api.html#query_Query-read
 
-#regex
+#### #regex
 
 http://mongoosejs.com/docs/api.html#query_Query-regex
 
-#remove
+#### #remove
 
 http://mongoosejs.com/docs/api.html#query_Query-remove
 
-#select
+#### #select
 
 http://mongoosejs.com/docs/api.html#query_Query-select
 
-#setOptions
+#### #setOptions
 
 http://mongoosejs.com/docs/api.html#query_Query-setOptions
 
-#size
+#### #size
 
 http://mongoosejs.com/docs/api.html#query_Query-size
 
-#skip
+#### #skip
 
 http://mongoosejs.com/docs/api.html#query_Query-skip
 
-#slice
+#### #slice
 
 http://mongoosejs.com/docs/api.html#query_Query-slice
 
-#snapshot
+#### #snapshot
 
 http://mongoosejs.com/docs/api.html#query_Query-snapshot
 
-#sort
+#### #sort
 
 http://mongoosejs.com/docs/api.html#query_Query-sort
 
-#stream
+#### #stream
 
 http://mongoosejs.com/docs/api.html#query_Query-stream
 
-#tailable
+#### #tailable
 
 http://mongoosejs.com/docs/api.html#query_Query-tailable
 
-#toConstructor
+#### #toConstructor
 
 http://mongoosejs.com/docs/api.html#query_Query-toConstructor
 
-#update
+#### #update
 
 http://mongoosejs.com/docs/api.html#query_Query-update
 
-#where
+#### #where
 
 http://mongoosejs.com/docs/api.html#query_Query-where
